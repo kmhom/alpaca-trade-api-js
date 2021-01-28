@@ -8,8 +8,8 @@ class DataStream {
   constructor({ apiKey, secretKey, feed }) {
     this.alpaca = new Alpaca({
       keyId: apiKey,
-      secretKey: secretKey,
-      feed: feed,
+      secretKey,
+      feed,
     });
 
     const socket = this.alpaca.data_stream_v2;
