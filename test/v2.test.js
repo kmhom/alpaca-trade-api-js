@@ -4,7 +4,7 @@ const { expect, assert } = require("chai");
 const alpacaApi = require("../lib/alpaca-trade-api");
 const mockServer = require("./support/mock-gomarkets-streaming");
 
-describe("data_stream_w2", async () => {
+describe("data_stream_v2", () => {
   let gomarkets_mock;
   let alpaca;
   let socket;
@@ -127,5 +127,10 @@ describe("data_stream_w2", async () => {
 
     await wait(10);
     assert.deepEqual(data, parsed);
+  });
+
+  it("close socket", () => {
+    socket.disconnect();
+    gomarkets_mock.close();
   });
 });

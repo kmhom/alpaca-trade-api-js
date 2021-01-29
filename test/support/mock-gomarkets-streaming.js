@@ -169,6 +169,10 @@ class StreamingWsMock {
       );
     }
   }
+
+  close() {
+    this.conn.close()
+  }
 }
 
 module.exports = {
