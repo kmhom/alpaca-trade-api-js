@@ -1,6 +1,6 @@
 "use strict";
 
-const { expect, assert } = require("chai");
+const { expect } = require("chai");
 const alpacaApi = require("../lib/alpaca-trade-api");
 const mockServer = require("./support/mock-streaming");
 
@@ -116,7 +116,6 @@ describe("data_stream_v2", () => {
   });
 
   it("parse streamed trade", async () => {
-    let data;
     const parsed = {
       T: "t",
       ID: 1532,
@@ -140,7 +139,6 @@ describe("data_stream_v2", () => {
   });
 
   it("parse streamed quote", async () => {
-    let data;
     const parsed = {
       T: "q",
       Symbol: "AAPL",
