@@ -84,10 +84,11 @@ describe("data_stream_v2", () => {
     const expectedSubs = JSON.stringify({
       trades: ["AAPL"],
       quotes: [],
-      bars: [],
+      bars: ["GE"],
     });
 
     socket.subscribeForTrades(["AAPL"]);
+    socket.subscribeForBars(["GE"])
 
     const res = await waitFor(() => {
       return JSON.stringify(socket.getSubscriptions()) === expectedSubs;
@@ -99,6 +100,7 @@ describe("data_stream_v2", () => {
     const expectedSubs = JSON.stringify({ trades: [], quotes: [], bars: [] });
 
     socket.unsubscribeFromTrades("AAPL");
+    socket.unsubscribeFromBars(["GE"])
 
     const res = await waitFor(() => {
       return JSON.stringify(socket.getSubscriptions()) === expectedSubs;
