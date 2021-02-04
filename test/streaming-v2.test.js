@@ -17,7 +17,7 @@ describe("data_stream_v2", () => {
   async function waitFor(fn, interval = 1, timeout = 1000) {
     const start = new Date().getTime();
     while (new Date().getTime() <= start + timeout) {
-      if (fn() === true) {
+      if (fn()) {
         return true;
       }
       await sleep(interval);
