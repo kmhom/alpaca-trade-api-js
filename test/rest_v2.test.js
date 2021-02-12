@@ -19,7 +19,7 @@ describe("data v2 rest", () => {
       10,
       alpaca.configuration
     );
-    let trades = [];
+    const trades = [];
 
     for await (let t of resp) {
       trades.push(t);
@@ -45,7 +45,7 @@ describe("data v2 rest", () => {
       3,
       alpaca.configuration
     );
-    let quotes = [];
+    const quotes = [];
 
     for await (let q of resp) {
       quotes.push(q);
@@ -74,7 +74,7 @@ describe("data v2 rest", () => {
       "all",
       alpaca.configuration
     );
-    let bars = [];
+    const bars = [];
 
     for await (let b of resp) {
       bars.push(b);
