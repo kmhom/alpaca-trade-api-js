@@ -30,10 +30,10 @@ module.exports = function createDataV2Mock() {
     "/stocks/:symbol/:endpoint",
     apiMethod((req) => {
       assertSchema(req.query, {
-        start: joi.string().isoDate().optional(),
-        end: joi.string().isoDate().optional(),
+        start: joi.string().isoDate(),
+        end: joi.string().isoDate(),
         limit: joi.number().integer().min(0).max(10000).optional(),
-        pageToken: joi.string().optional(),
+        page_token: joi.string().optional(),
         timeframe: joi.string().optional(),
         adjustment: joi.string().optional(),
       });
@@ -43,7 +43,10 @@ module.exports = function createDataV2Mock() {
         next_page_token: req.query.limit > 5 ? "token" : null,
       };
       response[req.params.endpoint] = [];
-      const limit = req.query.limit > 5 ? 5 : req.query.limit;
+      let limit = 3;
+      if (req.query.limit) {
+        limit = req.query.limit > 5 ? 5 : req.query.limit;
+      }
       for (let i = 0; i < limit; i++) {
         response[req.params.endpoint].push(symbols[req.params.endpoint]);
       }

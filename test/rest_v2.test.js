@@ -14,9 +14,11 @@ describe("data v2 rest", () => {
   it("get trades with paging", async () => {
     let resp = alpaca.getTradesV2(
       "AAPL",
-      "2021-02-08",
-      "2021-02-10",
-      10,
+      {
+        start: "2021-02-08",
+        end: "2021-02-10",
+        limit: 10,
+      },
       alpaca.configuration
     );
     const trades = [];
@@ -40,9 +42,40 @@ describe("data v2 rest", () => {
   it("get quotes", async () => {
     let resp = alpaca.getQuotesV2(
       "AAPL",
-      "2021-02-08",
-      "2021-02-10",
-      3,
+      {
+        start: "2021-02-08",
+        end: "2021-02-10",
+        limit: 4,
+      },
+      alpaca.configuration
+    );
+    const quotes = [];
+
+    for await (let q of resp) {
+      quotes.push(q);
+    }
+
+    // default amount of data is 4 
+    expect(quotes.length).equal(4);
+    expect(quotes[0]).to.have.all.keys([
+      "BidExchange",
+      "BidPrice",
+      "BidSize",
+      "AskExchange",
+      "AskPrice",
+      "AskSize",
+      "Timestamp",
+      "Condition",
+    ]);
+  });
+
+  it("get quotes without limit", async () => {
+    let resp = alpaca.getQuotesV2(
+      "AAPL",
+      {
+        start: "2021-02-08",
+        end: "2021-02-10",
+      },
       alpaca.configuration
     );
     const quotes = [];
@@ -62,16 +95,18 @@ describe("data v2 rest", () => {
       "Timestamp",
       "Condition",
     ]);
-  });
+  })
 
   it("get bars", async () => {
     let resp = alpaca.getBarsV2(
       "AAPL",
-      "2021-02-01",
-      "2021-02-10",
-      2,
-      "1Day",
-      "all",
+      {
+        start: "2021-02-01",
+        end: "2021-02-10",
+        limit: 2,
+        timeframe: "1Day",
+        adjustment: "all",
+      },
       alpaca.configuration
     );
     const bars = [];
